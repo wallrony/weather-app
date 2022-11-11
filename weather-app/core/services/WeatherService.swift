@@ -14,7 +14,7 @@ class WeatherService: WeatherUseCase {
         self.adapter = adapter
     }
     
-    func fetchCurrent(latitude: String, longitude: String) async throws -> Weather {
-        return try await self.adapter.fetchCurrent(latitude: latitude, longitude: longitude)
+    func fetchForecast(latlng: LatLng) async throws -> Weather {
+        return try await self.adapter.fetchForecast(latlng: latlng)
     }
 }

@@ -19,10 +19,11 @@
 		E889CC10291D3A9A00CE1BA8 /* WeatherUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC0F291D3A9A00CE1BA8 /* WeatherUseCase.swift */; };
 		E889CC13291D3B3500CE1BA8 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC12291D3B3500CE1BA8 /* WeatherService.swift */; };
 		E889CC15291D3B9E00CE1BA8 /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC14291D3B9E00CE1BA8 /* WeatherAPI.swift */; };
-		E889CC19291D4AB800CE1BA8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC18291D4AB800CE1BA8 /* Location.swift */; };
-		E889CC1B291D4CC900CE1BA8 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC1A291D4CC900CE1BA8 /* Weather.swift */; };
 		E889CC1F291D507400CE1BA8 /* WALocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC1E291D507400CE1BA8 /* WALocationManager.swift */; };
 		E889CC23291D632B00CE1BA8 /* DomainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889CC22291D632B00CE1BA8 /* DomainError.swift */; };
+		E8B98712291E76530044FF4C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B98711291E76530044FF4C /* Weather.swift */; };
+		E8B98714291E83DB0044FF4C /* LatLng.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B98713291E83DB0044FF4C /* LatLng.swift */; };
+		E8B98717291E93900044FF4C /* WrappingStack in Frameworks */ = {isa = PBXBuildFile; productRef = E8B98716291E93900044FF4C /* WrappingStack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,11 +40,11 @@
 		E889CC0F291D3A9A00CE1BA8 /* WeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUseCase.swift; sourceTree = "<group>"; };
 		E889CC12291D3B3500CE1BA8 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		E889CC14291D3B9E00CE1BA8 /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
-		E889CC18291D4AB800CE1BA8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		E889CC1A291D4CC900CE1BA8 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		E889CC1E291D507400CE1BA8 /* WALocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WALocationManager.swift; sourceTree = "<group>"; };
 		E889CC20291D525500CE1BA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E889CC22291D632B00CE1BA8 /* DomainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainError.swift; sourceTree = "<group>"; };
+		E8B98711291E76530044FF4C /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		E8B98713291E83DB0044FF4C /* LatLng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLng.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8B98717291E93900044FF4C /* WrappingStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,13 +78,13 @@
 		E889CBE8291D26CE00CE1BA8 /* weather-app */ = {
 			isa = PBXGroup;
 			children = (
-				E889CC20291D525500CE1BA8 /* Info.plist */,
 				E889CC08291D3A3300CE1BA8 /* core */,
 				E889CC06291D372D00CE1BA8 /* infra */,
 				E889CBF7291D321A00CE1BA8 /* ui */,
 				E889CBE9291D26CE00CE1BA8 /* weather_appApp.swift */,
 				E889CBEB291D26CE00CE1BA8 /* ContentView.swift */,
 				E889CBED291D26D000CE1BA8 /* Assets.xcassets */,
+				E889CC20291D525500CE1BA8 /* Info.plist */,
 				E889CBEF291D26D000CE1BA8 /* Preview Content */,
 			);
 			path = "weather-app";
@@ -195,8 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				E889CC22291D632B00CE1BA8 /* DomainError.swift */,
-				E889CC18291D4AB800CE1BA8 /* Location.swift */,
-				E889CC1A291D4CC900CE1BA8 /* Weather.swift */,
+				E8B98711291E76530044FF4C /* Weather.swift */,
+				E8B98713291E83DB0044FF4C /* LatLng.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -225,6 +227,9 @@
 			dependencies = (
 			);
 			name = "weather-app";
+			packageProductDependencies = (
+				E8B98716291E93900044FF4C /* WrappingStack */,
+			);
 			productName = "weather-app";
 			productReference = E889CBE6291D26CE00CE1BA8 /* weather-app.app */;
 			productType = "com.apple.product-type.application";
@@ -253,6 +258,9 @@
 				Base,
 			);
 			mainGroup = E889CBDD291D26CE00CE1BA8;
+			packageReferences = (
+				E8B98715291E93900044FF4C /* XCRemoteSwiftPackageReference "swiftui-wrapping-stack" */,
+			);
 			productRefGroup = E889CBE7291D26CE00CE1BA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -280,13 +288,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E889CC15291D3B9E00CE1BA8 /* WeatherAPI.swift in Sources */,
-				E889CC19291D4AB800CE1BA8 /* Location.swift in Sources */,
 				E889CC13291D3B3500CE1BA8 /* WeatherService.swift in Sources */,
 				E889CC23291D632B00CE1BA8 /* DomainError.swift in Sources */,
+				E8B98712291E76530044FF4C /* Weather.swift in Sources */,
 				E889CC1F291D507400CE1BA8 /* WALocationManager.swift in Sources */,
 				E889CC0C291D3A4A00CE1BA8 /* WeatherAdapter.swift in Sources */,
-				E889CC1B291D4CC900CE1BA8 /* Weather.swift in Sources */,
 				E889CC02291D353C00CE1BA8 /* WeatherViewModel.swift in Sources */,
+				E8B98714291E83DB0044FF4C /* LatLng.swift in Sources */,
 				E889CBFF291D34DF00CE1BA8 /* WAFittedSystemImage.swift in Sources */,
 				E889CC05291D362400CE1BA8 /* WeatherPage.swift in Sources */,
 				E889CBFB291D323700CE1BA8 /* WAText.swift in Sources */,
@@ -495,6 +503,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E8B98715291E93900044FF4C /* XCRemoteSwiftPackageReference "swiftui-wrapping-stack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/diniska/swiftui-wrapping-stack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E8B98716291E93900044FF4C /* WrappingStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8B98715291E93900044FF4C /* XCRemoteSwiftPackageReference "swiftui-wrapping-stack" */;
+			productName = WrappingStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E889CBDE291D26CE00CE1BA8 /* Project object */;
 }

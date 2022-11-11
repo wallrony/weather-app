@@ -8,5 +8,5 @@
 import Foundation
 
 protocol WeatherAdapter {
-    func fetchCurrent(latitude: String, longitude: String) async throws -> Weather
+    func fetchForecast(latlng: LatLng) async throws -> Weather
 }

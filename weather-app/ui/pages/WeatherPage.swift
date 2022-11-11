@@ -17,41 +17,52 @@ struct WeatherPage: View {
     }
 
     var body: some View {
-        ZStack {
-            BackgroundView(isNight: $viewModel.isNight)
-            if let coordinates = locationManager.locationCoords {
-                VStack(spacing: 16) {
-                    HStack {
-                        viewModel.currentLocationView
-                        Spacer()
-                        viewModel.currentTemperatureCard
-                    }.padding(.bottom, 40).padding(.horizontal, 16)
-                    viewModel.weekTemperaturesList
-                    Spacer()
-                    ChangeDayTimeButton(onClick: viewModel.toggleDayTime, isNight: $viewModel.isNight)
-                    Spacer().frame(height: 40)
-                }.onAppear(perform: {
-                    print(String(coordinates.latitude))
-                    print(String(coordinates.longitude))
-                    self.viewModel.fetchCurrent(
-                        latitude: String(coordinates.latitude),
-                        longitude: String(coordinates.longitude))
-                })
-            } else {
-                Button("Share my Current Location", action: {
-                    locationManager.requestLocation()
-                }).padding()
-                    .background(viewModel.isNight ? Color.white : Color.black.opacity(0.8))
-                    .foregroundColor(viewModel.isNight ? Color.black : Color.white)
-                    .cornerRadius(8)
+        NavigationView {
+            ZStack {
+                BackgroundView(isNight: $viewModel.isNight)
+                if let coordinates = locationManager.locationCoords {
+                    let _ = print("Coordinates:", coordinates)
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 16) {
+                                HStack {
+                                    viewModel.currentLocationView(placemark: self.locationManager.currentPlacemark)
+                                    Spacer()
+                                    viewModel.currentTemperatureCard
+                                }.padding(.bottom, 8).padding(.horizontal, 8)
+                                viewModel.weekTemperaturesList
+                                viewModel.lastTemperatureTimeUpdate
+                                    .padding(.horizontal, 8)
+                                    .padding(.bottom, 16)
+                                Spacer()
+                            }.onAppear(perform: {
+                                self.locationManager.addListener(fn: { (coordinates) in
+                                    onChangeCoordinates(coordinates: coordinates)
+                                })
+                                onChangeCoordinates(coordinates: coordinates)
+                            }).padding(.horizontal, 20)
+                        }.toolbar {
+                            Toggle(isOn: $viewModel.isNight, label: {
+                                Image(systemName: "moon.stars.fill")
+                                    .symbolRenderingMode(.multicolor)
+                            }).padding(.trailing, 16)
+                        }.padding(.top, 16)
+                } else {
+                    Button("Share my Current Location", action: {
+                        locationManager.requestLocation()
+                    }).padding()
+                        .background(viewModel.isNight ? Color.white : Color.black.opacity(0.8))
+                        .foregroundColor(viewModel.isNight ? Color.black : Color.white)
+                        .cornerRadius(8)
+                }
             }
         }
     }
     
     func onChangeCoordinates(coordinates: CLLocationCoordinate2D) {
-        viewModel.fetchCurrent(
-            latitude: coordinates.latitude.formatted(),
-            longitude: coordinates.longitude.formatted())
+        viewModel.fetch(
+            latitude: "\(coordinates.latitude)",
+            longitude: "\(coordinates.longitude)"
+        )
     }
 }
 
@@ -70,13 +81,13 @@ struct ChangeDayTimeButton: View {
         let backgroundColor: Color = isNight ? .black : .white
         
         Button("Change Day Time", action: self.onClick)
-        .foregroundColor(foregroundColor)
-        .padding(12)
-        .padding(.horizontal, 16)
-        .background(backgroundColor)
-        .cornerRadius(8)
-        .font(.system(size: 24, weight: .bold))
-        .shadow(radius: 4)
+            .foregroundColor(foregroundColor)
+            .padding(12)
+            .padding(.horizontal, 16)
+            .background(backgroundColor)
+            .cornerRadius(8)
+            .font(.system(size: 24, weight: .bold))
+            .shadow(radius: 4)
     }
 }
 
@@ -85,9 +96,8 @@ struct BackgroundView: View {
     
     var body: some View {
         let topColor: Color = self.isNight ? .black : .blue
-        let bottomColor: Color = self.isNight ? .gray : Color("LightBlue")
         LinearGradient(
-            gradient: Gradient(colors: [topColor, bottomColor]),
+            gradient: Gradient(colors: [topColor, Color("lightBlue")]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         ).edgesIgnoringSafeArea(.all)
