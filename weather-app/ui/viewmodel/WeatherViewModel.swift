@@ -48,14 +48,14 @@ class WeatherViewModel: ObservableObject {
     
     var currentTemperatureCard: some View {
         VStack(alignment: .trailing) {
-            WAFittedSystemImage(systemImageName: self.isNight ? "moon.stars.fill" : "cloud.sun.fill",
-                                height: 36,
-                                renderingMode: .multicolor)
             if weather == nil {
                 ProgressView().progressViewStyle(CircularProgressViewStyle()).frame(alignment: .center)
             } else {
-                let temperature: String = weather!.todayWeather.temperature.formatted()
-                WAText("\(temperature)º", fontSize: 24, weight: .semibold)
+                let temperature = weather!.todayWeather.temperature
+                WAFittedSystemImage(systemImageName: getWeatherImageByTemperature(temperature),
+                                    height: 36,
+                                    renderingMode: .multicolor)
+                WAText("\(temperature.formatted())º", fontSize: 24, weight: .semibold)
             }
         }
     }
@@ -91,7 +91,6 @@ class WeatherViewModel: ObservableObject {
                                 let forecast = forecastsGroup[$0]
                                 WeatherDayView(
                                     date: forecast.date,
-                                    systemImageName: "cloud.sun.fill",
                                     minTemperature: forecast.minTemperature,
                                     maxTemperature: forecast.maxTemperature
                                 )
@@ -103,10 +102,6 @@ class WeatherViewModel: ObservableObject {
         }.padding(.horizontal, 8)
             .padding(.vertical, 16)
             .cornerRadius(8)
-    }
-    
-    func toggleDayTime() {
-        self.isNight = !self.isNight
     }
     
     func fetch(latitude: String, longitude: String) {
@@ -125,7 +120,6 @@ class WeatherViewModel: ObservableObject {
 
 struct WeatherDayView: View {
     var date: String
-    var systemImageName: String
     var minTemperature: CGFloat
     var maxTemperature: CGFloat
     
@@ -137,8 +131,9 @@ struct WeatherDayView: View {
     
     var body: some View {
         VStack {
+            let avgTemperature = (self.maxTemperature + self.minTemperature) / 2
             WAFittedSystemImage(
-                systemImageName: self.systemImageName,
+                systemImageName: getWeatherImageByTemperature(avgTemperature),
                 height: 40,
                 renderingMode: .multicolor
             )
@@ -154,4 +149,17 @@ struct WeatherDayView: View {
             .cornerRadius(8)
             .shadow(color: .black.opacity(0.2), radius: 4)
     }
+}
+
+func getWeatherImageByTemperature(_ temperature: CGFloat) -> String {
+    if temperature >= 28 {
+        return "sun.max.fill"
+    } else if temperature <= 20 && temperature > 14 {
+        return "cloud.rain.fill"
+    } else if temperature <= 14 && temperature > 8 {
+        return "wind"
+    } else if temperature <= 8 {
+        return "snowflake"
+    }
+    return "cloud.sun.fill"
 }

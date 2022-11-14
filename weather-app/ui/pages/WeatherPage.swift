@@ -19,7 +19,7 @@ struct WeatherPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                BackgroundView(isNight: $viewModel.isNight)
+                BackgroundView()
                 if let coordinates = locationManager.locationCoords {
                     let _ = print("Coordinates:", coordinates)
                         ScrollView {
@@ -40,18 +40,13 @@ struct WeatherPage: View {
                                 })
                                 onChangeCoordinates(coordinates: coordinates)
                             }).padding(.horizontal, 20)
-                        }.toolbar {
-                            Toggle(isOn: $viewModel.isNight, label: {
-                                Image(systemName: "moon.stars.fill")
-                                    .symbolRenderingMode(.multicolor)
-                            }).padding(.trailing, 16)
-                        }.padding(.top, 16)
+                        }.padding(.top, 8)
                 } else {
                     Button("Share my Current Location", action: {
                         locationManager.requestLocation()
                     }).padding()
-                        .background(viewModel.isNight ? Color.white : Color.black.opacity(0.8))
-                        .foregroundColor(viewModel.isNight ? Color.black : Color.white)
+                        .background(Color.black.opacity(0.8))
+                        .foregroundColor(Color.white)
                         .cornerRadius(8)
                 }
             }
@@ -74,17 +69,13 @@ struct WeatherPage_Previews: PreviewProvider {
 
 struct ChangeDayTimeButton: View {
     var onClick: () -> Void
-    @Binding var isNight: Bool
     
     var body: some View {
-        let foregroundColor: Color = isNight ? .white : Color(.black.withAlphaComponent(0.8))
-        let backgroundColor: Color = isNight ? .black : .white
-        
         Button("Change Day Time", action: self.onClick)
-            .foregroundColor(foregroundColor)
+            .foregroundColor(Color(.black.withAlphaComponent(0.8)))
             .padding(12)
             .padding(.horizontal, 16)
-            .background(backgroundColor)
+            .background(.white)
             .cornerRadius(8)
             .font(.system(size: 24, weight: .bold))
             .shadow(radius: 4)
@@ -92,12 +83,9 @@ struct ChangeDayTimeButton: View {
 }
 
 struct BackgroundView: View {
-    @Binding var isNight: Bool
-    
     var body: some View {
-        let topColor: Color = self.isNight ? .black : .blue
         LinearGradient(
-            gradient: Gradient(colors: [topColor, Color("lightBlue")]),
+            gradient: Gradient(colors: [.blue, Color("lightBlue")]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         ).edgesIgnoringSafeArea(.all)
