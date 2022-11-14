@@ -1,7 +1,7 @@
 # weather-app
 That's a Weather App built using Swift that consumes the [open-meteo API](https://open-meteo.com/) and implements the View Model pattern and the Hexagonal Architecture.
 
-The [open-meteo](https://open-meteo.com/) API was used to get the current weather and the forecasts based on the latitude and longitude of the user, which is got after being allowed to read the phone's location.
+The [open-meteo API](https://open-meteo.com/) was used to get the current weather and the forecasts based on the latitude and longitude of the user, which is got after being allowed to read the phone's location.
 
 Feel free to fork this repo and make the changes you want. If you liked the implementation, star it :)
 
